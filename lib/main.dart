@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
               }
               return Text('Done');
             default:
-              return Text('loading...');
+              return Text('loading....');
           }
         },
       ),
