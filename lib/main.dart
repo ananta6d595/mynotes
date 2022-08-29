@@ -134,7 +134,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
               Navigator.of(context).pop(true);
               // the true in pop function returns as value
             },
-            child: const Text('Log Out'),
+            child: const Text('Log Out'), 
           )
         ],
       );
