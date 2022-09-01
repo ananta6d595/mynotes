@@ -3,7 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/firebase_options.dart';
-import 'dart:developer' as devTool show log;
+
+import 'package:mynotes/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -61,20 +62,41 @@ class _RegisterViewState extends State<RegisterView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                final userCredential =
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                await FirebaseAuth.instance.createUserWithEmailAndPassword(
                   email: email,
                   password: password,
                 );
-                devTool.log(userCredential.toString());
+                final user = FirebaseAuth.instance.currentUser;
+                user?.sendEmailVerification();
+                if (!mounted) return;
+                Navigator.of(context).pushNamed(verifyEmailRoute);
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  devTool.log('Weak Password');
+                  await showErrorDialog(
+                    context,
+                    'Weak Password',
+                  );
                 } else if (e.code == 'email-already-in-use') {
-                  devTool.log('Email already in use');
+                  await showErrorDialog(
+                    context,
+                    "Email already in use",
+                  );
                 } else if (e.code == 'invalid-email') {
-                  devTool.log('Invalid Email');
+                  showErrorDialog(
+                    context,
+                    "invalid Email",
+                  );
+                } else {
+                  showErrorDialog(
+                    context,
+                    "Error ${e.code}",
+                  );
                 }
+              } catch (e) {
+                showErrorDialog(
+                  context,
+                  e.toString(),
+                );
               }
             },
             child: Text('Register'),

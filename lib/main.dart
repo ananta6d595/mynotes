@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
       routes: {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
-        notesRoute: (context) => const NotesView()
+        notesRoute: (context) => const NotesView(),
+        verifyEmailRoute: (context) => const VerifyEmailView(),
       },
     );
   }
@@ -134,7 +135,7 @@ Future<bool> showLogOutDialog(BuildContext context) {
               Navigator.of(context).pop(true);
               // the true in pop function returns as value
             },
-            child: const Text('Log Out'), 
+            child: const Text('Log Out'),
           )
         ],
       );
@@ -143,6 +144,6 @@ Future<bool> showLogOutDialog(BuildContext context) {
   // "showDialog" function returns bool? thats why ".then()" has been used.54
 }
 
-// For switch case every case should return somthing or should have break statement.
+// For switch case every case should return something or should have break statement.
 // if there is any "if" condition in any "case" and not return or break keyword in any "case"
 // then every "if" condition must have return statement or break keyword.
