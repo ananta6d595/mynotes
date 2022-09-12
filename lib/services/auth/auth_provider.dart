@@ -4,6 +4,7 @@ import 'package:mynotes/services/auth/auth_user.dart';
 // interface as abstruct class
 
 abstract class AuthProvider {
+  Future<void> initialize();
   AuthUser? get currentUser;
   // ability to return current auth user optionally. The sign ? indicates optional.
   Future<AuthUser> logIn({
