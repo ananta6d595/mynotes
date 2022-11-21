@@ -1,4 +1,4 @@
-# mynotes
+# Mynotes
 
 A new Flutter project. For learniing perpose.
 
